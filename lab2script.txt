@@ -1,0 +1,58 @@
+set echo on
+spool E:\midkiff_lab2.dta
+set pagesize 15
+set linesize 100
+TTITLE CENTER 'ITSE 1345 Lab #2' SKIP 2
+BTITLE 'End of Report'
+
+SELECT idProduct, productname, price, active, type, idDepartment, stock
+FrOM bb_product;
+
+SELECT idShopper, b.idBasket, b.orderplaced, b.dtordered, b.dtcreated
+FROM bb_shopper s INNER JOIN bb_basket b
+USING (idShopper);
+
+SELECT idProduct, p.productname, pc.categoryname, pd.optionname
+FROM bb_product p INNER JOIN bb_productoption
+USING (idProduct)
+INNER JOIN bb_productoptiondetail pd
+USING (idOption)
+INNER JOIN bb_productoptioncategory pc
+USING (idOptioncategory);
+
+SELECT DISTINCT idProduct, productname
+FROM
+ORDER BY
+
+
+
+
+
+
+CREATE TABLE contacts
+   (con_id  		NUMBER(4),
+   Company_name		VARCHAR2(30) NOT NULL,
+   E_mail		VARCHAR2(30),
+   Last_date		DATE DEFAULT SYSDATE,
+   Con_cnt		NUMBER(3),
+   CONSTRAINT cont_conid_pk PRIMARY KEY (con_id),
+   CONSTRAINT cont_concnt_ck CHECK (Con_cnt > 0));
+
+INSERT INTO contacts (con_id, Company_name, E_mail, Con_cnt)
+	VALUES (17, 'Indeed', 'joecool@indeed.com', 21);
+INSERT INTO contacts (con_id, Company_name, E_mail, Con_cnt)
+	VALUES (18, 'Google', 'myohmy@google.com', 37);
+
+COMMIT;
+
+UPDATE contacts
+	SET E_mail='notsocool@indeed.com'
+	WHERE con_id=17;
+
+SELECT *
+FROM contacts;
+
+ROLLBACK;
+
+SELECT *
+FROM contacts;
